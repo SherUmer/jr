@@ -6,13 +6,15 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:jr/screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataBase with ChangeNotifier {
   bool isLoggedIn = false;
 
-  bool islog=false;
+  bool islog = false;
 
   Future<bool> checkAuth() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -79,75 +81,75 @@ class DataBase with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, dynamic> _mapRegister = {};
-  bool _errorRegister = false;
-  String _errorMessageRegister = '';
+  // Map<String, dynamic> _mapRegister = {};
+  // bool _errorRegister = false;
+  // String _errorMessageRegister = '';
 
-  Map<String, dynamic> get mapRegister => _mapRegister;
+  // Map<String, dynamic> get mapRegister => _mapRegister;
 
-  bool get errorRegister => _errorRegister;
+  // bool get errorRegister => _errorRegister;
 
-  String get errorMessageRegister => _errorMessageRegister;
+  // String get errorMessageRegister => _errorMessageRegister;
 
-  Future<void> userRegister(String name, String email, String password,
-      String phone, String image) async {
-    String completeurl = 'https://jansherjr.com/api/registration.php?name=' +
-        name +
-        '&email=' +
-        email +
-        '&password=' +
-        password +
-        '&phone=' +
-        phone +
-        '&image=' +
-        image;
-    print(completeurl);
-    final response;
+  // Future<void> userRegister(String name, String email, String password,
+  //     String phone, String image) async {
+  //   String completeurl = 'https://jansherjr.com/api/registration.php?name=' +
+  //       name +
+  //       '&email=' +
+  //       email +
+  //       '&password=' +
+  //       password +
+  //       '&phone=' +
+  //       phone +
+  //       '&image=' +
+  //       image;
+  //   print(completeurl);
+  //   final response;
 
-    // var response = await http.get(
-    //   Uri.parse(completeurl),
-    // );
-    if (Profilepicture != null) {
-      String base64Image = base64Encode(Profilepicture!.readAsBytesSync());
-      String fileName = Profilepicture!.path.split("/").last;
-      print(Profilepicture.toString() + 'picture printing');
+  //   // var response = await http.get(
+  //   //   Uri.parse(completeurl),
+  //   // );
+  //   if (Profilepicture != null) {
+  //     String base64Image = base64Encode(Profilepicture!.readAsBytesSync());
+  //     String fileName = Profilepicture!.path.split("/").last;
+  //     print(Profilepicture.toString() + 'picture printing');
 
-      response = await http.post(Uri.parse(completeurl), body: {
-        "image": base64Image,
-        "name": fileName,
-      });
-      if (response.statusCode == 200) {
-        print(response.body.toString() + "  printing mapregister");
+  //     response = await http.post(Uri.parse(completeurl), body: {
+  //       "image": base64Image,
+  //       "name": fileName,
+  //     });
+  //     if (response.statusCode == 200) {
+  //       print(response.body.toString() + "  printing mapregister");
 
-        try {
-          _mapRegister = jsonDecode(response.body);
-          print(_mapRegister.toString());
-          _errorRegister = false;
-          if (_mapRegister.isNotEmpty && _mapRegister['message'] == "True") {
-            print(
-                'yes its true from db and following is printing user object.');
-            id = _mapRegister['user']['id'];
-            name = _mapRegister['user']['name'].toString();
-            email = _mapRegister['user']['email'].toString();
-            phone = _mapRegister['user']['phone'].toString();
-            image = _mapRegister['user']['image'].toString();
-            print(_mapRegister.toString());
-            addAuth(id, name, email, password, phone, image);
-          }
-        } catch (e) {
-          _errorRegister = true;
-          _errorMessageRegister = e.toString();
-          _mapRegister = {};
-        }
-      } else {
-        _errorRegister = true;
-        _errorMessageRegister = 'Error : It could be your Internet connection.';
-        _mapRegister = {};
-      }
-    }
+  //       try {
+  //         _mapRegister = jsonDecode(response.body);
+  //         print(_mapRegister.toString());
+  //         _errorRegister = false;
+  //         if (_mapRegister.isNotEmpty && _mapRegister['message'] == "True") {
+  //           print(
+  //               'yes its true from db and following is printing user object.');
+  //           id = _mapRegister['user']['id'];
+  //           name = _mapRegister['user']['name'].toString();
+  //           email = _mapRegister['user']['email'].toString();
+  //           phone = _mapRegister['user']['phone'].toString();
+  //           image = _mapRegister['user']['image'].toString();
+  //           print(_mapRegister.toString());
+  //           addAuth(id, name, email, password, phone, image);
+  //         }
+  //       } catch (e) {
+  //         _errorRegister = true;
+  //         _errorMessageRegister = e.toString();
+  //         _mapRegister = {};
+  //       }
+  //     } else {
+  //       _errorRegister = true;
+  //       _errorMessageRegister = 'Error : It could be your Internet connection.';
+  //       _mapRegister = {};
+  //     }
+  //   }
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
   Map<String, dynamic> _mapedit_user = {};
   Map<String, dynamic> _mapaddForum = {};
@@ -208,7 +210,7 @@ class DataBase with ChangeNotifier {
           address = _mapedit_user['edit_user']['address'].toString();
           password = _mapedit_user['edit_user']['password'].toString();
           print(_mapedit_user.toString());
-          addAuth(id, name, email, password, phone, city);
+          addAuth(id, name, email, password, image, phone);
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('address', address);
         }
@@ -227,66 +229,66 @@ class DataBase with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, dynamic> mapUserRegister = {};
+  // Map<String, dynamic> mapUserRegister = {};
 
-  Map<String, dynamic> get _mapUserRegister => mapUserRegister;
+  // Map<String, dynamic> get _mapUserRegister => mapUserRegister;
 
-  Future<void> uploadImage(
-    String name,
-    String email,
-    String password,
-    String phone,
-    String Bio,
-    String speciality,
-    String fb_link,
-    String whatsapp,
-    String city,
-  ) async {
-    String URL =
-        'https://bingo-agency.com/mrworker/API/registrationapi.php?name=' +
-            name +
-            '&email=' +
-            email +
-            '&password=' +
-            password +
-            '&phone=' +
-            phone +
-            '&about=' +
-            Bio +
-            '&speciality=' +
-            speciality +
-            '&city=' +
-            city +
-            '&facebook=' +
-            fb_link +
-            '&whatsapp=' +
-            whatsapp;
-    print(URL);
-    final response;
-    response = await http.post(Uri.parse(URL));
-    print("printing responce" + response.toString());
+  // Future<void> uploadImage(
+  //   String name,
+  //   String email,
+  //   String password,
+  //   String phone,
+  //   String Bio,
+  //   String speciality,
+  //   String fb_link,
+  //   String whatsapp,
+  //   String city,
+  // ) async {
+  //   String URL =
+  //       'https://bingo-agency.com/mrworker/API/registrationapi.php?name=' +
+  //           name +
+  //           '&email=' +
+  //           email +
+  //           '&password=' +
+  //           password +
+  //           '&phone=' +
+  //           phone +
+  //           '&about=' +
+  //           Bio +
+  //           '&speciality=' +
+  //           speciality +
+  //           '&city=' +
+  //           city +
+  //           '&facebook=' +
+  //           fb_link +
+  //           '&whatsapp=' +
+  //           whatsapp;
+  //   print(URL);
+  //   final response;
+  //   response = await http.post(Uri.parse(URL));
+  //   print("printing responce" + response.toString());
 
-    if (response.statusCode == 200) {
-      mapUserRegister = jsonDecode(response.body);
-      print('prinitng From Map' + mapUserRegister.toString());
-      print('its 200');
-      print(response.body.toString());
+  //   if (response.statusCode == 200) {
+  //     mapUserRegister = jsonDecode(response.body);
+  //     print('prinitng From Map' + mapUserRegister.toString());
+  //     print('its 200');
+  //     print(response.body.toString());
 
-      id = _mapRegister['user']['id'];
-      name = _mapRegister['user']['name'].toString();
-      email = _mapRegister['user']['email'].toString();
-      phone = _mapRegister['user']['phone'].toString();
-      image = _mapRegister['user']['image'].toString();
-      print(_mapRegister.toString());
-      addAuth(id, name, email, password, phone, image);
-      print(id.toString() + 'printing id');
+  //     id = _mapRegister['user']['id'];
+  //     name = _mapRegister['user']['name'].toString();
+  //     email = _mapRegister['user']['email'].toString();
+  //     phone = _mapRegister['user']['phone'].toString();
+  //     image = _mapRegister['user']['image'].toString();
+  //     print(_mapRegister.toString());
+  //     addAuth(id, name, email, password, phone, image);
+  //     print(id.toString() + 'printing id');
 
-      var abPost = jsonDecode(response.body);
-      print(abPost.toString() + 'ab post');
-      print('ab ye jae ga Login py');
-      notifyListeners();
-    }
-  }
+  //     var abPost = jsonDecode(response.body);
+  //     print(abPost.toString() + 'ab post');
+  //     print('ab ye jae ga Login py');
+  //     notifyListeners();
+  //   }
+  // }
 
   var id;
   String name = '';
@@ -320,7 +322,7 @@ class DataBase with ChangeNotifier {
     notifyListeners();
   }
 
-  void addAuth(id, name, email, password, phone, image) async {
+  void addAuth(id, name, email, password, image, phone) async {
     print(id + ' id is being printed');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('id', id);
@@ -333,53 +335,219 @@ class DataBase with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, dynamic> _mapLogin = {};
-  bool _errorLogin = false;
-  String _errorMessageLogin = '';
+  // Map<String, dynamic> _mapLogin = {};
+  // bool _errorLogin = false;
+  // String _errorMessageLogin = '';
 
-  Map<String, dynamic> get mapLogin => _mapLogin;
+  // Map<String, dynamic> get mapLogin => _mapLogin;
 
-  bool get errorLogin => _errorLogin;
+  // bool get errorLogin => _errorLogin;
 
-  String get errorMessageLogin => _errorMessageLogin;
+  // String get errorMessageLogin => _errorMessageLogin;
 
-  Future<void> userLogin(String email, String password) async {
-    String completeurl = 'https://jansherjr.com/api/login.php?email=' +
-        email +
-        '&password=' +
-        password;
-    print(completeurl);
-    final response = await http.get(
-      Uri.parse('https://jansherjr.com/api/login.php?email=' +
-          email +
-          '&password=' +
-          password),
+  // Future<void> userLogin(String email, String password) async {
+  //   String completeurl = 'https://jansherjr.com/api/login.php?email=' +
+  //       email +
+  //       '&password=' +
+  //       password;
+  //   print(completeurl);
+  //   final response = await http.get(
+  //     Uri.parse('https://jansherjr.com/api/login.php?email=' +
+  //         email +
+  //         '&password=' +
+  //         password),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     try {
+  //       _mapLogin = jsonDecode(response.body);
+  //       _errorLogin = false;
+  //       if (_mapLogin.isNotEmpty && _mapLogin['message'] == "True") {
+  //         print('yes its true from db');
+  //         print(_mapLogin['user'][0]['id'].toString());
+  //         id = _mapLogin['user'][0]['id'].toString();
+  //         name = _mapLogin['user'][0]['name'].toString();
+  //         phone = _mapLogin['user'][0]['phone'].toString();
+  //         image = _mapLogin['user'][0]['image'].toString();
+  //         addAuth(id, name, email, password, phone, image);
+  //       }
+  //     } catch (e) {
+  //       _errorLogin = true;
+  //       _errorMessageLogin = e.toString();
+  //       _mapLogin = {};
+  //     }
+  //   } else {
+  //     _errorLogin = true;
+  //     _errorMessageLogin = 'Error : It could be your Internet connection.';
+  //     _mapLogin = {};
+  //   }
+  //   notifyListeners();
+  // }
+
+  // new login
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  void login(context, email, password) async {
+    _isLoading = true;
+    notifyListeners();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Row(children: [
+          const CircularProgressIndicator(),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Text('Loading...', style: GoogleFonts.montserrat())
+        ]),
+      ),
+    );
+
+    // Call your login API here
+    String completeUrl =
+        'https://jansherjr.com/api/login.php?email=$email&password=$password';
+
+    final response = await http.post(
+      Uri.parse(completeUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      if (jsonResponse['message'] == 'True') {
+        id = jsonResponse['user'][0]['id'].toString();
+        name = jsonResponse['user'][0]['name'].toString();
+        image = jsonResponse['user'][0]['image'].toString();
+        phone = jsonResponse['user'][0]['phone'].toString();
+        // timestamp = jsonResponse['user'][0]['timestamp'].toString();
+        addAuth(id, name, email, password, image, phone);
+        print('its true');
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => Home()),
+            (route) => false);
+        notifyListeners();
+      } else {
+        _isLoading = false;
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: Text(jsonResponse['message']),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+        print('its false');
+      }
+      print(jsonResponse);
+
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+// new login ends
+
+//new register starts
+
+  void register(context, name, email, password, phone) async {
+    _isLoading = true;
+    notifyListeners();
+
+    showDialog(
+      context: context,
+      builder: (context) => const AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(
+              width: 12.0,
+            ),
+            Text('Loading...')
+          ],
+        ),
+      ),
+    );
+    // Call your regitser API here
+    String completeUrl =
+        'https://jansherjr.com/api/registration.php?email=$email';
+
+    final response = await http.post(
+      Uri.parse(completeUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'phone': phone,
+      },
     );
     if (response.statusCode == 200) {
-      try {
-        _mapLogin = jsonDecode(response.body);
-        _errorLogin = false;
-        if (_mapLogin.isNotEmpty && _mapLogin['message'] == "True") {
-          print('yes its true from db');
-          print(_mapLogin['user'][0]['id'].toString());
-          id = _mapLogin['user'][0]['id'].toString();
-          name = _mapLogin['user'][0]['name'].toString();
-          phone = _mapLogin['user'][0]['phone'].toString();
-          image = _mapLogin['user'][0]['image'].toString();
-          addAuth(id, name, email, password, phone, image);
-        }
-      } catch (e) {
-        _errorLogin = true;
-        _errorMessageLogin = e.toString();
-        _mapLogin = {};
+      final jsonResponse = json.decode(response.body);
+      print(jsonResponse);
+      if (jsonResponse['message'] == 'True') {
+        id = jsonResponse['user']['id'].toString();
+        print('printing id ' + id.toString());
+        name = jsonResponse['user']['name'].toString();
+        image = jsonResponse['user']['image'].toString();
+        phone = jsonResponse['user']['phone'].toString();
+        // timestamp = jsonResponse['user'][0]['timestamp'].toString();
+        addAuth(id, name, email, password, image, phone);
+        print('its true');
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => Home()),
+            (route) => false);
+        notifyListeners();
+      } else {
+        _isLoading = false;
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  'User Exists / Blocked User. Contact Admin Support.'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+        print('its false');
       }
-    } else {
-      _errorLogin = true;
-      _errorMessageLogin = 'Error : It could be your Internet connection.';
-      _mapLogin = {};
+      print(jsonResponse);
+
+      _isLoading = false;
+      notifyListeners();
     }
-    notifyListeners();
   }
+
+//new register ends
 
   Future<String> getImage() async {
     _getAuth();
@@ -398,36 +566,61 @@ class DataBase with ChangeNotifier {
     return email;
   }
 
-  Map<String, dynamic> _mapForums = {};
-  bool _errorForums = false;
-  String _errorMessageForums = '';
-
-  Map<String, dynamic> get mapForums => _mapForums;
-
-  bool get errorForums => _errorForums;
-
-  String get errorMessageForums => _errorMessageForums;
-
-  Future<void> get fetchForums async {
-    final response = await http.get(
-      Uri.parse('https://jansherjr.com/api/forum.php'),
-    );
-    if (response.statusCode == 200) {
-      try {
-        _mapForums = jsonDecode(response.body);
-        _errorForums = false;
-      } catch (e) {
-        _errorForums = true;
-        _errorMessageForums = e.toString();
-        _mapForums = {};
-      }
-    } else {
-      _errorForums = true;
-      _errorMessageForums = 'Error : It could be your Internet connection.';
-      _mapForums = {};
-    }
-    notifyListeners();
+  List<dynamic> _forums = [];
+  List<dynamic> get forums {
+    return _forums;
   }
+
+  void fetchForums() async {
+    print('forums being fetched.');
+    try {
+      final response =
+          await http.get(Uri.parse('https://jansherjr.com/api/forum.php'));
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonMap = jsonDecode(response.body);
+        final List<dynamic> jsonList = jsonMap['forum'];
+        print(jsonList.length);
+        _forums = jsonList;
+        notifyListeners();
+      } else {
+        throw Exception('Failed to fetch products: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e);
+      notifyListeners();
+    }
+  }
+
+  // Map<String, dynamic> _mapForums = {};
+  // bool _errorForums = false;
+  // String _errorMessageForums = '';
+
+  // Map<String, dynamic> get mapForums => _mapForums;
+
+  // bool get errorForums => _errorForums;
+
+  // String get errorMessageForums => _errorMessageForums;
+
+  // Future<void> get fetchForums async {
+  //   final response = await http.get(
+  //     Uri.parse('https://jansherjr.com/api/forum.php'),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     try {
+  //       _mapForums = jsonDecode(response.body);
+  //       _errorForums = false;
+  //     } catch (e) {
+  //       _errorForums = true;
+  //       _errorMessageForums = e.toString();
+  //       _mapForums = {};
+  //     }
+  //   } else {
+  //     _errorForums = true;
+  //     _errorMessageForums = 'Error : It could be your Internet connection.';
+  //     _mapForums = {};
+  //   }
+  //   notifyListeners();
+  // }
 
   Map<String, dynamic> _mapDiet = {};
   bool _errorDiet = false;
@@ -440,6 +633,7 @@ class DataBase with ChangeNotifier {
   String get errorMessageDiet => _errorMessageDiet;
 
   Future<void> fetchDiet(user_id) async {
+    // final String url = 'https://jansherjr.com/api/diet.php?user_id=1';
     final String url = 'https://jansherjr.com/api/diet.php?user_id=' + user_id;
     print('' + url);
     final response = await http.get(
@@ -494,21 +688,21 @@ class DataBase with ChangeNotifier {
   }
 
   void initialValues() {
-    _mapRegister = {};
-    _errorRegister = false;
-    _errorMessageRegister = '';
-    _mapLogin = {};
-    _errorLogin = false;
-    _errorMessageLogin = '';
+    // _mapRegister = {};
+    // _errorRegister = false;
+    // _errorMessageRegister = '';
+    // _mapLogin = {};
+    // _errorLogin = false;
+    // _errorMessageLogin = '';
     _mapStore = {};
     _errorStore = false;
     _errorMessageStore = '';
     _mapevents = {};
     _errorevents = false;
     _errorMessageevents = '';
-    _mapForums = {};
-    _errorForums = false;
-    _errorMessageForums = '';
+    // _mapForums = {};
+    // _errorForums = false;
+    // _errorMessageForums = '';
     _mapDiet = {};
     _errorDiet = false;
     _errorMessageDiet = '';
@@ -618,7 +812,6 @@ class DataBase with ChangeNotifier {
     }
   }
 
-
   Map<String, dynamic> _mapevents = {};
   bool _errorevents = false;
   String _errorMessageevents = '';
@@ -649,6 +842,4 @@ class DataBase with ChangeNotifier {
     }
     notifyListeners();
   }
-
-  
 }

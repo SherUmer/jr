@@ -1,4 +1,4 @@
-package com.example.jr
+package com.jansherjr
 
 import io.flutter.embedding.android.FlutterActivity
 

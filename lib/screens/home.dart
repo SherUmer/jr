@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jr/models/database.dart';
+import 'package:jr/screens/homeBanner.dart';
 import 'package:jr/screens/widgets/CustomBottomBar.dart';
 import 'package:jr/screens/widgets/customDrawer.dart';
 import 'package:jr/screens/widgets/homeCarousel.dart';
@@ -51,12 +52,14 @@ class Home extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       // ignore: prefer_interpolation_to_compose_strings
                       child: Text(
-                        'Welcome dear ' + dbclass.name.toString() + '...!',
+                        'Welcome ' + dbclass.name.toString() + '...!',
                         style:
                             const TextStyle(color: Colors.white, fontSize: 40),
                       ),
                     )
-                  : const HomeCarousel();
+                  :
+                  // const HomeCarousel();
+                  const HomeBanner();
             }),
             const HomeTransformationPrograms(),
             const HomeForums(),

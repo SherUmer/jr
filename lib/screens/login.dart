@@ -2,220 +2,169 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jr/models/database.dart';
 import 'package:jr/screens/forgetPassword.dart';
-import 'package:jr/screens/home.dart';
 import 'package:jr/screens/register.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
-   Login({Key? key}) : super(key: key);
- final emailController = TextEditingController();
-    final  passwordController = TextEditingController();
+  const Login({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> map;
+    // Map<String, dynamic> map;
     String message;
     var dbclass = context.read<DataBase>();
 
-   
-    // TextEditingController emailController =  TextEditingController();
-    // TextEditingController passwordController =  TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        leading: const BackButton(
+          color: Colors.white,
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          "Login",
+          style: GoogleFonts.montserrat(color: Colors.white),
+        ),
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-           // crossAxisAlignment: CrossAxisAlignment.stretch,
-            //mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20.0),
-                      Text(
-                        'Welcome back',
-                        style: GoogleFonts.montserrat(
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
+      body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView(
+            children: <Widget>[
+              Container(
+                  height: 350,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              "Login & Get Exclusive membership with the mentor JR himself.",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 30.0, color: Colors.white),
+                            ), //BoxDecoration
+                          ), //Container
                         ),
-                      ),
-                      const Text(
-                        'Welcome back, you have been missed.',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        // Text(
+                        //     'Register and get access to 54,000 database records'),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.loose,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Image(
+                                fit: BoxFit.contain,
+                                image: AssetImage('assets/images/jrlogo.png'),
+                              ) //BoxDecoration
+                              ), //Container
+                        )
+                      ])),
+              Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    'Login',
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22, color: Theme.of(context).primaryColor),
+                  )),
               const SizedBox(
-                height: 20.0,
-              ),
-              Icon(Icons.account_circle,
-                  color: Theme.of(context).primaryColor,
-                  size: MediaQuery.of(context).size.width / 3),
-              const SizedBox(
-                height: 20.0,
+                height: 30,
               ),
               Container(
-                color: Colors.white,
                 padding: const EdgeInsets.all(10),
                 child: TextField(
-                  //enableInteractiveSelection: false,
                   controller: emailController,
-                  
-                  decoration:  const InputDecoration(
-                    
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: 'Email',
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    errorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    focusedErrorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    errorStyle: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                    labelStyle: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                    prefixIcon: const Icon(Icons.email),
+                    suffixIcon: const Icon(Icons.check),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    // Set the style of the input text
+                    hintStyle: const TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
               Container(
-                color: Colors.white,
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  
-                  decoration:  const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: 'Password',
+                    fillColor: Colors.white,
+                    filled: true,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    errorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    focusedErrorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    errorStyle: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                    labelStyle: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: const Icon(Icons.visibility_off),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    // Set the style of the input text
+                    hintStyle: const TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  var email = emailController.text.toString();
-                  var password = passwordController.text.toString();
-                  //print
-                  var userclass = await dbclass.userLogin(email, password);
-                  map = dbclass.mapLogin;
-                  message =  dbclass.mapLogin['message'].toString();
-                  if (map.isEmpty) {
-                    print('map is empty');
-                    await showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('Warning', style: GoogleFonts.montserrat()),
-                        content: FutureBuilder(
-                          future: dbclass.userLogin(email, password),
-                          builder: (context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              return Text(
-                                snapshot.data.toString(),
-                                softWrap: true,
-                                style: GoogleFonts.montserrat(
-                                    color: Theme.of(context).primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
-                              );
-                            } else {
-                              return const SizedBox(
-                                height: 100,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .pop(); // dismisses only the dialog and returns nothing
-                            },
-                            child: Text(
-                              'Try again',
-                              style: GoogleFonts.montserrat(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    if (message.isNotEmpty && message == 'True') {
-                      //shared prefs !!!
-                      dbclass.islog=true;
-                      dbclass.name;
-
-                      print('True');
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => Home(),
-                        ),
-                      );
-                    } else if (message.isNotEmpty && message == 'False') {
-                      print('False');
-                      await showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(
-                            'Warning',
-                            style: GoogleFonts.montserrat(),
-                          ),
-                          content: Text(
-                            'Invalid Credentials,Login Failed',
-                            style: GoogleFonts.montserrat(),
-                          ),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop(); // dismisses only the dialog and returns nothing
-                              },
-                              child: Text(
-                                'Try again',
-                                style: GoogleFonts.montserrat(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  }
-                  print(emailController.text);
-                  print(passwordController.text);
-                },
-                
-                child: const Padding(
-                  padding: EdgeInsets.all(18.0),
-                  child: Text('Login'),
-                ),
-              ),
-              const Divider(
-                color: Colors.black12,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const Register(),
-                    ),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(18.0),
-                  child: Text('Register'),
-                ),
-              ),
-              const Divider(
-                color: Colors.grey,
               ),
               TextButton(
                 onPressed: () {
@@ -226,16 +175,54 @@ class Login extends StatelessWidget {
                 },
                 child: Text(
                   'Forgot Password',
-                  style:
-                      GoogleFonts.ubuntu(color: Theme.of(context).primaryColor),
+                  style: GoogleFonts.montserrat(color: Colors.white),
                 ),
               ),
+              Container(
+                  height: 50,
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  // color: Colors.purple,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor),
+                    child: const Text('Login',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    onPressed: () async {
+                      // print(loginMap['message']);
+                      var email = emailController.text.toString();
+                      var password = passwordController.text.toString();
+                      //print
+
+                      dbclass.login(context, email, password);
+                    },
+                  )),
+              const Divider(
+                color: Colors.black12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Does not have account?',
+                    style: GoogleFonts.montserrat(),
+                  ),
+                  TextButton(
+                    child: Text(
+                      'Register',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20, color: Theme.of(context).primaryColor),
+                    ),
+                    onPressed: () {
+                      //signup screen
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => const Register()));
+                    },
+                  )
+                ],
+              ),
             ],
-          ),
-        ),
-      ),
+          )),
     );
   }
-
-
 }

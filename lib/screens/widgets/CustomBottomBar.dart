@@ -5,6 +5,7 @@ import 'package:jr/screens/account.dart';
 import 'package:jr/screens/auth.dart';
 import 'package:jr/screens/login.dart';
 import 'package:jr/screens/screenParts/profilePage.dart';
+import 'package:jr/screens/widgets/progress.dart';
 import 'package:provider/provider.dart';
 
 import '../Store.dart';
@@ -34,11 +35,24 @@ class CustomBottomBar extends StatelessWidget {
           if (value == 1) {
             print('PLans');
             var id = dbclass.id.toString();
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) =>   ProfilePage(id: id,),
-              ),
-            );
+            (dbclass.isLoggedIn == true)
+                ? Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => Progress(id: id),
+                    ),
+                  )
+                : Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const Login(),
+                    ),
+                  );
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) => ProfilePage(
+            //       id: id,
+            //     ),
+            //   ),
+            // );
           }
           if (value == 2) {
             print('Forums');
@@ -50,17 +64,12 @@ class CustomBottomBar extends StatelessWidget {
           }
           if (value == 3) {
             print('Store');
-            (dbclass.isLoggedIn == true)
-                ? Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const Store(),
-                    ),
-                  )
-                : Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => Login(),
-                    ),
-                  );
+
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => const Store(),
+              ),
+            );
           }
         },
         items: const [
@@ -69,14 +78,14 @@ class CustomBottomBar extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Plans',
+            icon: Icon(Icons.add_alarm_sharp),
+            label: 'Progress',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Forums',
           ),
-          
+
           BottomNavigationBarItem(
             icon: Icon(Icons.add_shopping_cart),
             label: 'Merch Store',

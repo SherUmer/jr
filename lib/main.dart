@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'models/database.dart';
 import 'routes/routes.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
                 onGenerateRoute: RouteManager.generateRoute,
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
+                  useMaterial3: true,
                   colorScheme: ColorScheme.fromSeed(
                     seedColor: const Color(0xFFA0260D),
                     primary: const Color(0xFFA0260D), //<-- SEE HERE
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
                   primaryColor: const Color(0xFFA0260D),
                   secondaryHeaderColor: const Color(0xFFeeeeee),
                   // accentColor: const Color(0xFFFE9936),
-                  accentColor: const Color(0xFF4d4949),
+                  scaffoldBackgroundColor: const Color(0xFF4d4949),
                   textTheme: TextTheme(
                     headline1: const TextStyle(
                       color: Color(0xFF4d4949),

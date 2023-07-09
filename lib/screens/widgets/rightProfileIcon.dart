@@ -17,25 +17,19 @@ class RightProfileIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-     Map<String, dynamic> _mapLocation;
+    Map<String, dynamic> _mapLocation;
     Future<void> GetCity(String value) async {
       final response = await http
-          .get(Uri.parse('https://jansherjr.com/api/diet.php?user_id=1' ));
+          .get(Uri.parse('https://jansherjr.com/api/diet.php?user_id=1'));
       if (response.statusCode == 200) {
         _mapLocation = jsonDecode(response.body);
         //print(_mapLocation.toString());
       }
     }
 
-
-
-
-
     bool isLoggedIn;
-    context.read<DataBase>().checkAuth();
     var dbclass = context.read<DataBase>();
+    context.read<DataBase>().checkAuth();
 
     if (dbclass.isLoggedIn == true) {
       isLoggedIn = dbclass.isLoggedIn;
@@ -55,7 +49,7 @@ class RightProfileIcon extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  Login()),
+                  MaterialPageRoute(builder: (context) => const Login()),
                 );
               },
               child: const CircleAvatar(
@@ -72,6 +66,7 @@ class RightProfileIcon extends StatelessWidget {
             backgroundColor: Colors.black12,
             child: InkWell(
               onTap: () async {
+                print('printing image here -> ' + dbclass.image.toString());
                 var id = dbclass.id.toString();
                 print(id);
                 showDialog<void>(
@@ -97,10 +92,10 @@ class RightProfileIcon extends StatelessWidget {
                               ],
                             ),
                             child: Column(
-                             // crossAxisAlignment: CrossAxisAlignment.stretch,
+                              // crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
                                 ElevatedButton(
-                                  onPressed: ()  {
+                                  onPressed: () {
                                     GetCity('1');
                                     var id = dbclass.id.toString();
                                     Navigator.of(context).pop();
@@ -108,7 +103,6 @@ class RightProfileIcon extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ProfilePage(
-
                                           id: id,
                                         ),
                                       ),
@@ -137,21 +131,18 @@ class RightProfileIcon extends StatelessWidget {
                                 ),
                                 const Divider(),
                                 ElevatedButton(
-                                  onPressed: ()  {
-
+                                  onPressed: () {
                                     // Map<String, dynamic> userMap =
                                     //    dbclass.edit_user('name', 'email', 'password', 'phone', 'city') as Map<String, dynamic>;
                                     print(' Profile Page');
                                     var id = dbclass.id.toString();
                                     Navigator.of(context).pop();
-                                  //  print('hello'+userMap.toString());
+                                    //  print('hello'+userMap.toString());
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => Account(
-
                                           id: id,
-
                                         ),
                                       ),
                                     );

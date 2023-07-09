@@ -155,7 +155,6 @@ class TempCard extends StatelessWidget {
                 ),
               ),
             ),
-            
             Positioned(
               bottom: 0,
               left: 0,
@@ -263,7 +262,6 @@ class TempCardcoming extends StatelessWidget {
                 ),
               ),
             ),
-            
             Positioned(
               bottom: 0,
               left: 0,
@@ -308,7 +306,6 @@ class TempCardcoming extends StatelessWidget {
     );
   }
 }
-
 
 class plancard extends StatelessWidget {
   const plancard(
@@ -347,7 +344,6 @@ class plancard extends StatelessWidget {
         child: Stack(
           children: [
             CachedNetworkImage(
-              
                 placeholder: (context, url) => const Center(
                       child: SizedBox(
                         width: 50.0,
@@ -357,7 +353,7 @@ class plancard extends StatelessWidget {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
                 imageUrl: image,
                 fit: BoxFit.cover,
-                width: 350,
+                width: MediaQuery.of(context).size.width,
                 height: 150),
             Positioned(
               bottom: 0,
@@ -393,14 +389,16 @@ class plancard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                            Text(
-                            time,
-                            style: GoogleFonts.ubuntu(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).secondaryHeaderColor),
-                          ),
-                          ],)
+                              Text(
+                                time,
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -414,6 +412,3 @@ class plancard extends StatelessWidget {
     );
   }
 }
-
-
-

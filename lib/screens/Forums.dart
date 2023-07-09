@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,21 +6,12 @@ import 'package:jr/screens/forumDetail.dart';
 import 'package:provider/provider.dart';
 
 class Forums extends StatelessWidget {
-  
-  
-   const Forums({Key? key}) : super(key: key);
+  const Forums({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var dbclass = context.read<DataBase>();
-    final topicController = TextEditingController();
-  final descriptionController = TextEditingController();
-  // final timeController = TextEditingController();
-  // var date = new DateTime(2018, 1, 13);
-  // var newDate = new DateTime(date.year, date.month - 1, date.day);
-
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text('Forums'),
       ),
@@ -58,59 +47,52 @@ class Forums extends StatelessWidget {
                     child: const Text('Add a new Topic'),
                     onPressed: () {
                       showDialog(
-                        
                         context: context,
                         builder: (ctx) => AlertDialog(
                           title: Text(
-                            
                             "Add a new Topic",
                             style: GoogleFonts.montserrat(
                                 color: Theme.of(context).primaryColor),
                           ),
-                          content: SingleChildScrollView(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                Container(
-                                  color: Colors.white,
-                                  padding: const EdgeInsets.all(10),
-                                  child:  TextField(
-                                    controller: topicController,
-                                    decoration: const InputDecoration(
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Topic',
-                                    ),
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                color: Colors.white,
+                                padding: const EdgeInsets.all(10),
+                                child: const TextField(
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Topic',
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                                Container(
-                                  height: MediaQuery.of(context).size.height*0.15,
-                                  color: Colors.white,
-                                  padding: const EdgeInsets.all(10),
-                                  child:  TextField(
-                                    controller: descriptionController,
-                                    maxLines: 4,
-                                    keyboardType: TextInputType.multiline,
-                                    decoration: const InputDecoration(
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Description',
-                                    ),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                color: Colors.white,
+                                padding: const EdgeInsets.all(10),
+                                child: const TextField(
+                                  maxLines: 3,
+                                  keyboardType: TextInputType.multiline,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Description',
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                            ],
                           ),
                           actions: <Widget>[
                             TextButton(
@@ -123,25 +105,8 @@ class Forums extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                                onPressed: ()  async{
-                        Map.identity();
-                        String  id='1';
-                        var topic = topicController.text;
-                        var description = descriptionController.text;
-
-
-                        // String topicId='1';
-
-                        // //print
-                          await dbclass.addForum(
-                            id,topic,description );
-                            Navigator.of(ctx).pop();
-                            
-                          // print('hello'+ dbclass.addForum.toString());
-                       // map = dbclass.mapedit_user;
-                        //message =  dbclass.mapLogin['message'].toString();
-                          // print(emailController.text);
-                          // print(passwordController.text);
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(14),
@@ -167,76 +132,67 @@ class Forums extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height*0.7,
-              child: Consumer<DataBase>(builder: (context, value, child) {
-                return value.mapForums.isEmpty && !value.errorForums
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black12,
-                          backgroundColor: Colors.black12,
-                        ),
-                      )
-                    : value.errorForums
-                        ? Text(
-                            'Oops, something went wrong .${value.errorMessageForums}',
-                            textAlign: TextAlign.center,
-                          )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: value.mapForums['forum'].length,
-                            itemBuilder: (context, index) {
-                              var map = value.mapForums['forum'][index];
-                              String name = map['name'];
+            Consumer<DataBase>(builder: (context, value, child) {
+              return value.forums.isEmpty
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                        backgroundColor: Colors.black12,
+                      ),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: value.forums.length,
+                      itemBuilder: (context, index) {
+                        var map = value.forums[index];
+                        String name = map['name'];
 
-                              var finalName = name .toUpperCase() +
-                                  name.substring(1).toLowerCase();
-                              return ListTile(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          ForumDetail(map: map),
-                                    ),
-                                  );
-                                },
-                                leading: CircleAvatar(
-                                  backgroundColor: Colors.white12,
-                                  child: CachedNetworkImage(
-                                      height: 100.0,
-                                      width: 100.0,
-                                      fit: BoxFit.cover,
-                                      imageUrl: map['user_image']),
-                                ),
-                                title: Text(
-                                  map['topic'],
-                                  style: GoogleFonts.montserrat(
-                                      color: Theme.of(context).canvasColor),
-                                  softWrap: true,
-                                ),
-                                subtitle: Text(
-                                  map['description'].length > 100
-                                      ? map['description'].substring(0, 100) +
-                                          '...'
-                                      : map['description'],
-                                  style: const TextStyle(
-                                    color: Colors.white24,
-                                  ),
-                                ),
-                                // Text(
-                                //   map['description'],
-                                //   style: GoogleFonts.montserrat(
-                                //       color: Colors.white24),
-                                //   softWrap: true,
-                                // ),
-                                trailing: const Icon(Icons.chevron_right,
-                                    color: Colors.white12),
-                              );
-                            });
-              }),
-            ),
+                        var finalName = name[0].toUpperCase() +
+                            name.substring(1).toLowerCase();
+                        return ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    ForumDetail(map: map),
+                              ),
+                            );
+                          },
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.white12,
+                            child: CachedNetworkImage(
+                                height: 100.0,
+                                width: 100.0,
+                                fit: BoxFit.cover,
+                                imageUrl: map['user_image']),
+                          ),
+                          title: Text(
+                            map['topic'],
+                            style: GoogleFonts.montserrat(
+                                color: Theme.of(context).primaryColor),
+                            softWrap: true,
+                          ),
+                          subtitle: Text(
+                            map['description'].length > 100
+                                ? map['description'].substring(0, 100) + '...'
+                                : map['description'],
+                            style: const TextStyle(
+                              color: Colors.white24,
+                            ),
+                          ),
+                          // Text(
+                          //   map['description'],
+                          //   style: GoogleFonts.montserrat(
+                          //       color: Colors.white24),
+                          //   softWrap: true,
+                          // ),
+                          trailing: const Icon(Icons.chevron_right,
+                              color: Colors.white12),
+                        );
+                      });
+            }),
 
-            
+            //
             // ListView(
             //   physics: const ClampingScrollPhysics(),
             //   shrinkWrap: true,
@@ -251,7 +207,7 @@ class Forums extends StatelessWidget {
             //             imageUrl: 'https://jansherjr.com/img/hero.JPG'),
             //       ),
             //       title: Text(
-            //         'Benefits of Online Coaching', 
+            //         'Benefits of Online Coaching',
             //         style: GoogleFonts.montserrat(
             //             color: Theme.of(context).canvasColor),
             //         softWrap: true,
@@ -381,7 +337,7 @@ class Forums extends StatelessWidget {
             //     ),
             //   ],
             // ),
-            
+            //
           ],
         ),
       ),

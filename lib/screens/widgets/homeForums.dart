@@ -12,7 +12,7 @@ class HomeForums extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dbclass = context.read<DataBase>();
-    context.read<DataBase>().fetchForums;
+    dbclass.fetchForums();
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -34,7 +34,7 @@ class HomeForums extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (BuildContext context) =>  Forums(),
+                        builder: (BuildContext context) => const Forums(),
                       ),
                     );
                   },
@@ -43,7 +43,7 @@ class HomeForums extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w500,
                         fontSize: 14.0,
-                        color: Theme.of(context).canvasColor),
+                        color: Theme.of(context).primaryColor),
                     softWrap: true,
                   ),
                 ),
@@ -55,7 +55,7 @@ class HomeForums extends StatelessWidget {
           ),
           Consumer<DataBase>(
             builder: ((context, value, child) {
-              if (value.mapForums.isEmpty || value.mapForums == null) {
+              if (value.forums.isEmpty) {
                 return const SizedBox(
                   width: 50.0,
                   child: LinearProgressIndicator(
@@ -66,49 +66,52 @@ class HomeForums extends StatelessWidget {
                 return ListView.builder(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: value.mapForums['forum'].length,
+                    itemCount: value.forums.length,
                     itemBuilder: (context, index) {
-                      var map = value.mapForums['forum'][index];
-                      print(map['user_image']);
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  ForumDetail(map: map),
-                            ),
-                          );
-                        },
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.white12,
-                            radius: 25.0,
-                            child: ClipOval(
-                              child: CachedNetworkImage(
-                                  height: 100.0,
-                                  width: 100.0,
-                                  fit: BoxFit.cover,
-                                  imageUrl: map['user_image']),
-                            ),
-                          ),
-                          title: Text(
-                            map['topic'],
-                            style: GoogleFonts.montserrat(
-                                color: Theme.of(context).canvasColor),
-                            softWrap: true,
-                          ),
-                          subtitle: Text(
-                            map['description'],
-                            style:
-                                GoogleFonts.montserrat(color: Colors.white24),
-                            softWrap: true,
-                          ),
-                          trailing: const Icon(Icons.chevron_right,
-                              color: Colors.white12),
-                        ),
-                      );
-                    },
-                    );
+                      var map = value.forums[index];
+
+                      return (value.forums.isEmpty)
+                          ? const SizedBox(
+                              width: 50.0,
+                              child: LinearProgressIndicator(
+                                minHeight: 2.0,
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        ForumDetail(map: map),
+                                  ),
+                                );
+                              },
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.white12,
+                                  radius: 25.0,
+                                  child: ClipOval(
+                                    child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl: map['user_image']),
+                                  ),
+                                ),
+                                title: Text(
+                                  map['topic'],
+                                  style: const TextStyle(color: Colors.white),
+                                  softWrap: true,
+                                ),
+                                subtitle: Text(
+                                  map['description'],
+                                  style: GoogleFonts.montserrat(
+                                      color: Colors.white24),
+                                  softWrap: true,
+                                ),
+                                trailing: const Icon(Icons.chevron_right,
+                                    color: Colors.white12),
+                              ),
+                            );
+                    });
               }
             }),
           ),

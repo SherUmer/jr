@@ -6,9 +6,11 @@ import 'package:provider/provider.dart';
 import '../models/database.dart';
 
 class Account extends StatelessWidget {
-
-  Account({Key? key, required this.id,}) : super(key: key);
-    final String id;
+  Account({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+  final String id;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -37,17 +39,17 @@ class Account extends StatelessWidget {
               child: Stack(
                 children: [
                   CircleAvatar(
-              radius: 50.0,
-              backgroundColor: Colors.black12,
-              child: ClipOval(
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: "https://mrworker.pk/img/avatardefault.png",
-                  width: 50,
-                  height: 50,
-                ),
-              ),
-            ),
+                    radius: 50.0,
+                    backgroundColor: Colors.black12,
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: "https://mrworker.pk/img/avatardefault.png",
+                        width: 50,
+                        height: 50,
+                      ),
+                    ),
+                  ),
                   // Container(
                   //   width: MediaQuery.of(context).size.width * 0.4,
                   //   height: MediaQuery.of(context).size.height * 0.2,
@@ -217,7 +219,9 @@ class Account extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   ElevatedButton(
                       onPressed: () async {
                         Map.identity();
@@ -228,16 +232,15 @@ class Account extends StatelessWidget {
                         var address = addressController.text.toString();
                         var password = passwordController.text.toString();
                         //print
-                         await dbclass.edit_user(
+                        await dbclass.edit_user(
                             name, email, phone, city, address, password);
-                          print('hello'+ dbclass.mapedit_user.toString());
-                       // map = dbclass.mapedit_user;
+                        print('hello' + dbclass.mapedit_user.toString());
+                        // map = dbclass.mapedit_user;
                         //message =  dbclass.mapLogin['message'].toString();
-                          // print(emailController.text);
-                          // print(passwordController.text);
-                        },
+                        // print(emailController.text);
+                        // print(passwordController.text);
+                      },
                       child: const Padding(
-                        
                         padding: EdgeInsets.all(18.0),
                         child: Center(child: Text('Update')),
                       ))
