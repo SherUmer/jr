@@ -10,6 +10,7 @@ import 'package:jr/models/database.dart';
 import 'package:jr/screens/account.dart';
 import 'package:jr/screens/login.dart';
 import 'package:jr/screens/screenParts/profilePage.dart';
+import 'package:jr/screens/widgets/progress.dart';
 import 'package:provider/provider.dart';
 
 class RightProfileIcon extends StatelessWidget {
@@ -102,7 +103,7 @@ class RightProfileIcon extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ProfilePage(
+                                        builder: (context) => Progress(
                                           id: id,
                                         ),
                                       ),
@@ -115,15 +116,19 @@ class RightProfileIcon extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Icon(FontAwesomeIcons.user,
+                                        Icon(FontAwesomeIcons.timeline,
                                             size: 16.0,
                                             color:
                                                 Theme.of(context).primaryColor),
-                                        Text(
-                                          'Account',
-                                          style: GoogleFonts.montserrat(
-                                              color: Colors.black,
-                                              fontSize: 14.0),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(
+                                            ' Progress',
+                                            style: GoogleFonts.montserrat(
+                                                color: Colors.black,
+                                                fontSize: 14.0),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -155,11 +160,15 @@ class RightProfileIcon extends StatelessWidget {
                                             size: 12.0,
                                             color:
                                                 Theme.of(context).primaryColor),
-                                        Text(
-                                          'Edit Profile',
-                                          style: GoogleFonts.montserrat(
-                                              color: Colors.black,
-                                              fontSize: 14.0),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(
+                                            'Edit Profile',
+                                            style: GoogleFonts.montserrat(
+                                                color: Colors.black,
+                                                fontSize: 14.0),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -180,11 +189,15 @@ class RightProfileIcon extends StatelessWidget {
                                             size: 16.0,
                                             color:
                                                 Theme.of(context).primaryColor),
-                                        Text(
-                                          ' Logout',
-                                          style: GoogleFonts.montserrat(
-                                              color: Colors.black,
-                                              fontSize: 16.0),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(
+                                            ' Logout',
+                                            style: GoogleFonts.montserrat(
+                                                color: Colors.black,
+                                                fontSize: 16.0),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -201,7 +214,7 @@ class RightProfileIcon extends StatelessWidget {
               },
               child: ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: dbclass.image,
+                  imageUrl: 'https://jansherjr.com/' + dbclass.image,
                   fit: BoxFit.cover,
                   width: 50,
                   height: 50,

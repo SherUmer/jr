@@ -14,7 +14,12 @@ class ForumDetail extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: Theme.of(context).backgroundColor,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

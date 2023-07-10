@@ -14,7 +14,14 @@ class Store extends StatelessWidget {
     context.read<DataBase>().fetchForums;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Merch Store'),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: Theme.of(context).backgroundColor,
+        title: const Text(
+          'Merch Store',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(

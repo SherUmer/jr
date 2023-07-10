@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:jr/screens/home.dart';
+import 'package:jr/screens/widgets/progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataBase with ChangeNotifier {
@@ -431,7 +432,9 @@ class DataBase with ChangeNotifier {
         addAuth(id, name, email, password, image, phone);
         print('its true');
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => Home()),
+            MaterialPageRoute(
+              builder: (BuildContext context) => Progress(id: id),
+            ),
             (route) => false);
         notifyListeners();
       } else {

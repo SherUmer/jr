@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jr/screens/register.dart';
 import 'package:provider/provider.dart';
 
 import '../models/database.dart';
@@ -12,10 +13,17 @@ class ProgramDetail1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var dbclass = context.read<DataBase>();
+    var dbclass = context.read<DataBase>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Competition'),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: Theme.of(context).backgroundColor,
+        title: const Text(
+          'Competition',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
@@ -283,19 +291,23 @@ class ProgramDetail1 extends StatelessWidget {
             ),
             Consumer<DataBase>(builder: (context, value, child) {
               return Center(
-              child: 
-              dbclass.islog==true ?
-              Text(''):
-              ElevatedButton(
-                onPressed: () {
-                  //Navigator.push(context, Register());
-                },
-                child: const Text('Enroll Now'),
-              )
-            );
-            const SizedBox(
-              height: 15.0,
-            );})
+                  child: dbclass.islog == true
+                      ? const Text('')
+                      : ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const Login(),
+                              ),
+                            );
+                          },
+                          child: const Text('Enroll Now'),
+                        ));
+              const SizedBox(
+                height: 15.0,
+              );
+            })
           ],
         ),
       ),

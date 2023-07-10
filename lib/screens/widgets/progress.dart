@@ -22,13 +22,22 @@ class Progress extends StatelessWidget {
           primary: true,
           child: Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Current Progress',
+                    style: TextStyle(
+                        fontSize: 22.0, color: Theme.of(context).primaryColor),
+                  ),
+                ),
                 ChartWidget(
                   dataPoints: [
                     ChartDataPoint('Start', 10.0),
                     ChartDataPoint('slowProgress', 15.0),
                     ChartDataPoint('Good Progress', 20.0),
-                    ChartDataPoint('A little better', 25.0),
+                    ChartDataPoint('A little better', 15.0),
                     ChartDataPoint('Around 30', 30.0),
                     ChartDataPoint('35', 35.0),
                     ChartDataPoint('Best progress so far.', 40.0)
@@ -42,16 +51,16 @@ class Progress extends StatelessWidget {
                     print('your snapshot is ... ' + snapshot.toString());
                     var map = dbclass.mapDiet['diet'];
                     return (dbclass.mapDiet.isNotEmpty)
-                        ? GridView.builder(
+                        ? ListView.builder(
                             primary: false,
                             shrinkWrap: true,
                             itemCount: map.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 1,
-                                    crossAxisSpacing: 5.0,
-                                    mainAxisSpacing: 5.0,
-                                    childAspectRatio: 0.6),
+                            // gridDelegate:
+                            //     const SliverGridDelegateWithFixedCrossAxisCount(
+                            //         crossAxisCount: 1,
+                            //         crossAxisSpacing: 5.0,
+                            //         mainAxisSpacing: 5.0,
+                            //         childAspectRatio: 0.6),
                             itemBuilder: (BuildContext context, int index) {
                               // Map map = value.mapDiet['diet'];
                               print('yeh mera map hai -> ' +
@@ -59,7 +68,6 @@ class Progress extends StatelessWidget {
                               return Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     plancard(
                                       image:
@@ -124,7 +132,7 @@ class Progress extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 10.0),
-                const Text('Contact'),
+                const Text('Loading'),
               ],
             ),
           )),
