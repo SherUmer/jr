@@ -97,7 +97,7 @@ class Store extends StatelessWidget {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
                                       map[index]['price'].toString(),
-                                      style: GoogleFonts.ubuntu(
+                                      style: GoogleFonts.montserrat(
                                           fontWeight: FontWeight.bold,
                                           color: Theme.of(context)
                                               .secondaryHeaderColor),
@@ -123,7 +123,7 @@ class Store extends StatelessWidget {
                                           children: [
                                             Text(
                                               map[index]['title'].toString(),
-                                              style: GoogleFonts.ubuntu(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.bold,
                                                   color: Theme.of(context)
@@ -135,7 +135,7 @@ class Store extends StatelessWidget {
                                             Text(
                                               map[index]['description']
                                                   .toString(),
-                                              style: GoogleFonts.ubuntu(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.bold,
                                                   color: Theme.of(context)

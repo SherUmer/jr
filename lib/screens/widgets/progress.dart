@@ -16,7 +16,14 @@ class Progress extends StatelessWidget {
     context.read<DataBase>().fetchDiet(id);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Progress'),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: Theme.of(context).backgroundColor,
+        title: const Text(
+          'Progress',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: SingleChildScrollView(
           primary: true,

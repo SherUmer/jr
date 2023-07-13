@@ -51,7 +51,8 @@ class ForumDetail extends StatelessWidget {
                       leading: CachedNetworkImage(
                         width: 50,
                         fit: BoxFit.cover,
-                        imageUrl: comments[index]['user_image'],
+                        imageUrl: 'https://jansherjr.com/' +
+                            comments[index]['user_image'],
                       ),
                       title: Text(
                         comments[index]['user_name'],

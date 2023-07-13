@@ -230,67 +230,6 @@ class DataBase with ChangeNotifier {
     notifyListeners();
   }
 
-  // Map<String, dynamic> mapUserRegister = {};
-
-  // Map<String, dynamic> get _mapUserRegister => mapUserRegister;
-
-  // Future<void> uploadImage(
-  //   String name,
-  //   String email,
-  //   String password,
-  //   String phone,
-  //   String Bio,
-  //   String speciality,
-  //   String fb_link,
-  //   String whatsapp,
-  //   String city,
-  // ) async {
-  //   String URL =
-  //       'https://bingo-agency.com/mrworker/API/registrationapi.php?name=' +
-  //           name +
-  //           '&email=' +
-  //           email +
-  //           '&password=' +
-  //           password +
-  //           '&phone=' +
-  //           phone +
-  //           '&about=' +
-  //           Bio +
-  //           '&speciality=' +
-  //           speciality +
-  //           '&city=' +
-  //           city +
-  //           '&facebook=' +
-  //           fb_link +
-  //           '&whatsapp=' +
-  //           whatsapp;
-  //   print(URL);
-  //   final response;
-  //   response = await http.post(Uri.parse(URL));
-  //   print("printing responce" + response.toString());
-
-  //   if (response.statusCode == 200) {
-  //     mapUserRegister = jsonDecode(response.body);
-  //     print('prinitng From Map' + mapUserRegister.toString());
-  //     print('its 200');
-  //     print(response.body.toString());
-
-  //     id = _mapRegister['user']['id'];
-  //     name = _mapRegister['user']['name'].toString();
-  //     email = _mapRegister['user']['email'].toString();
-  //     phone = _mapRegister['user']['phone'].toString();
-  //     image = _mapRegister['user']['image'].toString();
-  //     print(_mapRegister.toString());
-  //     addAuth(id, name, email, password, phone, image);
-  //     print(id.toString() + 'printing id');
-
-  //     var abPost = jsonDecode(response.body);
-  //     print(abPost.toString() + 'ab post');
-  //     print('ab ye jae ga Login py');
-  //     notifyListeners();
-  //   }
-  // }
-
   var id;
   String name = '';
   String email = '';
@@ -335,54 +274,6 @@ class DataBase with ChangeNotifier {
     print('auth added ');
     notifyListeners();
   }
-
-  // Map<String, dynamic> _mapLogin = {};
-  // bool _errorLogin = false;
-  // String _errorMessageLogin = '';
-
-  // Map<String, dynamic> get mapLogin => _mapLogin;
-
-  // bool get errorLogin => _errorLogin;
-
-  // String get errorMessageLogin => _errorMessageLogin;
-
-  // Future<void> userLogin(String email, String password) async {
-  //   String completeurl = 'https://jansherjr.com/api/login.php?email=' +
-  //       email +
-  //       '&password=' +
-  //       password;
-  //   print(completeurl);
-  //   final response = await http.get(
-  //     Uri.parse('https://jansherjr.com/api/login.php?email=' +
-  //         email +
-  //         '&password=' +
-  //         password),
-  //   );
-  //   if (response.statusCode == 200) {
-  //     try {
-  //       _mapLogin = jsonDecode(response.body);
-  //       _errorLogin = false;
-  //       if (_mapLogin.isNotEmpty && _mapLogin['message'] == "True") {
-  //         print('yes its true from db');
-  //         print(_mapLogin['user'][0]['id'].toString());
-  //         id = _mapLogin['user'][0]['id'].toString();
-  //         name = _mapLogin['user'][0]['name'].toString();
-  //         phone = _mapLogin['user'][0]['phone'].toString();
-  //         image = _mapLogin['user'][0]['image'].toString();
-  //         addAuth(id, name, email, password, phone, image);
-  //       }
-  //     } catch (e) {
-  //       _errorLogin = true;
-  //       _errorMessageLogin = e.toString();
-  //       _mapLogin = {};
-  //     }
-  //   } else {
-  //     _errorLogin = true;
-  //     _errorMessageLogin = 'Error : It could be your Internet connection.';
-  //     _mapLogin = {};
-  //   }
-  //   notifyListeners();
-  // }
 
   // new login
   bool _isLoading = false;
@@ -433,7 +324,7 @@ class DataBase with ChangeNotifier {
         print('its true');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (BuildContext context) => Progress(id: id),
+              builder: (BuildContext context) => Home(),
             ),
             (route) => false);
         notifyListeners();
@@ -691,21 +582,12 @@ class DataBase with ChangeNotifier {
   }
 
   void initialValues() {
-    // _mapRegister = {};
-    // _errorRegister = false;
-    // _errorMessageRegister = '';
-    // _mapLogin = {};
-    // _errorLogin = false;
-    // _errorMessageLogin = '';
     _mapStore = {};
     _errorStore = false;
     _errorMessageStore = '';
     _mapevents = {};
     _errorevents = false;
     _errorMessageevents = '';
-    // _mapForums = {};
-    // _errorForums = false;
-    // _errorMessageForums = '';
     _mapDiet = {};
     _errorDiet = false;
     _errorMessageDiet = '';
